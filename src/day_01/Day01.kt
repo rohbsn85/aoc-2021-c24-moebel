@@ -1,4 +1,4 @@
-package day_ß1
+package day_01
 
 import readInput
 
@@ -12,10 +12,9 @@ fun main() {
     }
 
     // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day01_test")
-    check(part1(testInput) == 1)
 
-    val input = readInput("day_ß1.Day01").map {
+
+    val input = readInput("day_01/Day01").map {
         it.toInt()
     }
     var forEachCounter = 0
