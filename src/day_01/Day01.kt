@@ -38,7 +38,9 @@ fun main() {
     print("\n")
 
     val partTwoFoldCounter = solutionFoldPartTwo(input)
-    print("partTwoCount: $partTwoFoldCounter")
+    val partTwoFoldCounterAlternate = solutionFoldPartTwoWithoutIndices(input)
+
+    println("solutions for partTwoCount: $partTwoFoldCounter, $partTwoFoldCounterAlternate ")
 
 
 }
@@ -65,11 +67,23 @@ private fun solutionFoldPartTwo(input: List<Int>) = input.foldIndexed(Day01_02((
     }
 }
 
-//private fun _solutionFoldPartTwo(input: List<Int>) = input.fold(Day01_03(, 0)) { acc, value ->
-//    val sum = acc.sum + value
-//    val previousSum = acc.sum + (acc.previousSum - acc.sum)
-//    acc.copy(previousSum = previousSum, sum = sum, count = if (previousSum > sum) acc.count + 1 else acc.count)
-//}
+private fun solutionFoldPartTwoWithoutIndices(input: List<Int>) = input.fold(Day01_03(
+        input[1],
+        0,
+        input[2],
+        input[0] + input[1] + input[2],
+        0)) { acc, value ->
+    val sum = acc.previousValue + acc.value + value
+    val previousSum = acc.sum
+    val accValue = value
+    val previousVal = acc.value
+    acc.copy(previousValue = previousVal,
+            previousSum = previousSum,
+            value = value,
+            sum = sum,
+            count = if (previousSum < sum) acc.count + 1 else acc.count
+    )
+}
 
 private fun solutionForEachIndex(input: List<Int>, forEachCounter: Int): Int {
     var forEachCounter1 = forEachCounter
@@ -87,4 +101,4 @@ data class Day01(val previousValue: Int, val sum: Int)
 
 data class Day01_02(val previousSum: Int, val sum: Int)
 
-data class Day01_03(val previousSum: Int, val sum: Int, val count: Int)
+data class Day01_03(val previousValue: Int, val previousSum: Int, val value: Int, val sum: Int, val count: Int)
