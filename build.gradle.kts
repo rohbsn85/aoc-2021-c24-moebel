@@ -4,6 +4,11 @@ plugins {
 
 repositories {
     mavenCentral()
+    maven("https://repo.kotlin.link")
+}
+
+dependencies {
+    api("space.kscience:kmath-core:0.3.0-dev-14")
 }
 
 tasks {
