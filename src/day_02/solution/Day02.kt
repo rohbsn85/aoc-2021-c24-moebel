@@ -29,17 +29,18 @@ fun main() {
 enum class Direction(val key: String, val driveAction: (SubmarinePosition, Int) -> SubmarinePosition) {
     FORWARD("forward", { currentPosition, distance ->
         currentPosition.copy(
-            horizontal = currentPosition.horizontal + distance
+            horizontal = currentPosition.horizontal + distance,
+            depth = currentPosition.depth + currentPosition.aim * distance,
         )
     }),
     DOWN("down", { currentPosition, distance ->
         currentPosition.copy(
-            depth = currentPosition.depth + distance
+            aim = currentPosition.aim + distance
         )
     }),
     UP("up", { currentPosition, distance ->
         currentPosition.copy(
-            depth = currentPosition.depth - distance
+            aim = currentPosition.aim - distance
         )
     }),
 //    BACKWARDS("backwards"),
@@ -58,6 +59,7 @@ data class Command(
 data class SubmarinePosition(
     var horizontal: Int = 0,
     var depth: Int = 0,
+    var aim: Int = 0,
 ) {
     fun multiplied() = horizontal * depth
 }
